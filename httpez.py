@@ -4,6 +4,7 @@ import requests
 
 input_file = input("Your website list: ")
 output_file = input("Result filename: ")
+num_threads = int(input("Thread (number): "))
 
 url_queue = queue.Queue()
 
@@ -29,7 +30,7 @@ def check_url():
                 print(url + ' [FAILED]')
         url_queue.task_done()
 
-for i in range(200):
+for i in range(num_threads):
     t = threading.Thread(target=check_url)
     t.daemon = True
     t.start()
